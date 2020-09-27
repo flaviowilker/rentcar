@@ -3,8 +3,8 @@ package domain
 import (
 	"errors"
 
-	"github.com/jinzhu/gorm"
 	"golang.org/x/crypto/bcrypt"
+	"gorm.io/gorm"
 )
 
 // User Errors
@@ -26,10 +26,13 @@ type UserRepository interface {
 // User ...
 type User struct {
 	gorm.Model
-	Name     string `gorm:"type:varchar(255)"`
-	Login    string `gorm:"type:varchar(255);unique_index"`
-	Password string `gorm:"type:varchar(255)"`
-	Token    string `gorm:"type:varchar(255);unique_index"`
+	Name          string `gorm:"type:varchar(255)"`
+	Login         string `gorm:"type:varchar(255);unique_index"`
+	Password      string `gorm:"type:varchar(255)"`
+	Token         string `gorm:"type:varchar(255);unique_index"`
+	RoleID        uint
+	Role          Role
+	UserSchedules []UserSchedule
 }
 
 // NewUser ...

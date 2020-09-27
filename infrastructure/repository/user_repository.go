@@ -2,7 +2,7 @@ package repository
 
 import (
 	"github.com/flaviowilker/rentcar/domain"
-	"github.com/jinzhu/gorm"
+	"gorm.io/gorm"
 )
 
 // UserRepository ...
