@@ -29,7 +29,7 @@ func (u *UserRepository) FindAll() (*[]domain.User, error) {
 	var users []domain.User
 	u.Db.Find(&users)
 
-	return users, nil
+	return &users, nil
 }
 
 // Create ...
