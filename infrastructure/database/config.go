@@ -11,8 +11,8 @@ import (
 
 type config struct {
 	host     string
-	name     string
 	port     string
+	name     string
 	user     string
 	password string
 }
@@ -28,6 +28,13 @@ func NewConfig() *gorm.DB {
 		password: os.Getenv("DATABASE_PASSWORD"),
 	}
 
+	db := createConnection(configDB)
+	executeMigrations(db)
+
+	return db
+}
+
+func createConnection(configDB config) *gorm.DB {
 	dsn := "host=" + configDB.host + " port=" + configDB.port + " dbname=" + configDB.name + " user=" + configDB.user + " password=" + configDB.password + " sslmode=disable TimeZone=America/Fortaleza"
 
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
@@ -36,12 +43,13 @@ func NewConfig() *gorm.DB {
 		panic(err)
 	}
 
-	db.AutoMigrate(&domain.Role{})
-	db.AutoMigrate(&domain.CarModel{})
-	db.AutoMigrate(&domain.Car{})
-	db.AutoMigrate(&domain.CarSchedule{})
-	db.AutoMigrate(&domain.UserSchedule{})
-	db.AutoMigrate(&domain.User{})
-
 	return db
+}
+
+func executeMigrations(db *gorm.DB) {
+	err := db.AutoMigrate(&domain.Role{}, &domain.CarModel{}, &domain.Car{}, &domain.CarSchedule{}, &domain.User{}, &domain.UserSchedule{})
+	if err != nil {
+		log.Fatalf("Error to execute database migrations: %v", err)
+		panic(err)
+	}
 }
