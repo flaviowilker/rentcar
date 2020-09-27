@@ -18,8 +18,8 @@ var (
 type UserRepository interface {
 	FindByLogin(string) (*User, error)
 	FindAll() (*[]User, error)
-	Create(*User) (*User, error)
-	Update(*User) (*User, error)
+	Create(User) (*User, error)
+	Update(User) (*User, error)
 	Delete(uint) (*User, error)
 }
 
@@ -36,11 +36,12 @@ type User struct {
 }
 
 // NewUser ...
-func NewUser(name string, login string, password string) (*User, error) {
+func NewUser(name string, login string, password string, roleID uint) (*User, error) {
 	user := &User{
 		Name:     name,
 		Login:    login,
 		Password: password,
+		RoleID:   roleID,
 	}
 
 	passwordCrypted, err := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)

@@ -28,9 +28,9 @@ func (u *UserUseCase) FindAll() (*[]domain.User, error) {
 }
 
 // Create ...
-func (u *UserUseCase) Create(user *domain.User) (*domain.User, error) {
+func (u *UserUseCase) Create(entity domain.User) (*domain.User, error) {
 
-	user, err := u.UserRepository.Create(user)
+	user, err := u.UserRepository.Create(entity)
 
 	if err != nil {
 		return user, err
@@ -40,9 +40,9 @@ func (u *UserUseCase) Create(user *domain.User) (*domain.User, error) {
 }
 
 // Update ...
-func (u *UserUseCase) Update(user *domain.User) (*domain.User, error) {
+func (u *UserUseCase) Update(entity domain.User) (*domain.User, error) {
 
-	user, err := u.UserRepository.Update(user)
+	user, err := u.UserRepository.Update(entity)
 
 	if err != nil {
 		return user, err

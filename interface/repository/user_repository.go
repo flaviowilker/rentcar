@@ -15,11 +15,14 @@ func NewUserRepository(DB *gorm.DB) UserRepository {
 	return UserRepository{Db: DB}
 }
 
-// Login ...
-func (u *UserRepository) Login(login string) (*domain.User, error) {
-
+// FindByLogin ...
+func (u *UserRepository) FindByLogin(login string) (*domain.User, error) {
 	var user domain.User
-	u.Db.First(&user, "login = ?", login)
+
+	err := u.Db.First(&user, "login = ?", login).Error
+	if err != nil {
+		return nil, err
+	}
 
 	return &user, nil
 }
@@ -27,30 +30,48 @@ func (u *UserRepository) Login(login string) (*domain.User, error) {
 // FindAll ...
 func (u *UserRepository) FindAll() (*[]domain.User, error) {
 	var users []domain.User
-	u.Db.Find(&users)
+
+	err := u.Db.Find(&users).Error
+	if err != nil {
+		return nil, err
+	}
 
 	return &users, nil
 }
 
 // Create ...
-func (u *UserRepository) Create(user *domain.User) (*domain.User, error) {
-	u.Db.Save(&user)
+func (u *UserRepository) Create(user domain.User) (*domain.User, error) {
+	err := u.Db.Save(&user).Error
+	if err != nil {
+		return nil, err
+	}
 
-	return user, nil
+	return &user, nil
 }
 
 // Update ...
-func (u *UserRepository) Update(user *domain.User) (*domain.User, error) {
-	u.Db.Save(&user)
+func (u *UserRepository) Update(user domain.User) (*domain.User, error) {
+	err := u.Db.Save(&user).Error
+	if err != nil {
+		return nil, err
+	}
 
-	return user, nil
+	return &user, nil
 }
 
 // Delete ...
 func (u *UserRepository) Delete(id uint) (*domain.User, error) {
 	var user domain.User
-	u.Db.First(&user, id)
-	u.Db.Delete(&user)
+
+	err := u.Db.First(&user, id).Error
+	if err != nil {
+		return nil, err
+	}
+
+	err = u.Db.Delete(&user).Error
+	if err != nil {
+		return nil, err
+	}
 
 	return &user, nil
 }
