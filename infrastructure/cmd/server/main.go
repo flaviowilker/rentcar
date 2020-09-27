@@ -6,8 +6,8 @@ import (
 
 func main() {
 	db := database.NewConfig()
-	dbSQL, ok := db.DB()
-	if ok != nil {
+	dbSQL, err := db.DB()
+	if err != nil {
 		defer dbSQL.Close()
 	}
 
