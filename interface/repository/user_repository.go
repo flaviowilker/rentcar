@@ -11,8 +11,8 @@ type UserRepository struct {
 }
 
 // NewUserRepository ...
-func NewUserRepository(DB *gorm.DB) UserRepository {
-	return UserRepository{Db: DB}
+func NewUserRepository(db *gorm.DB) UserRepository {
+	return UserRepository{Db: db}
 }
 
 // FindByLogin ...

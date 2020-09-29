@@ -1,16 +1,17 @@
-package application
+package usecase
 
 import (
+	"github.com/flaviowilker/rentcar/application/repository"
 	"github.com/flaviowilker/rentcar/domain"
 )
 
 // UserUseCase ...
 type UserUseCase struct {
-	UserRepository domain.UserRepository
+	UserRepository repository.UserRepository
 }
 
 // NewUserUseCase ...
-func NewUserUseCase(u domain.UserRepository) UserUseCase {
+func NewUserUseCase(u repository.UserRepository) UserUseCase {
 	return UserUseCase{
 		UserRepository: u,
 	}

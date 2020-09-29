@@ -14,15 +14,6 @@ var (
 	ErrUserInvalidPassword = errors.New("The password is invalid")
 )
 
-// UserRepository ...
-type UserRepository interface {
-	FindByLogin(string) (*User, error)
-	FindAll() (*[]User, error)
-	Create(User) (*User, error)
-	Update(User) (*User, error)
-	Delete(uint) (*User, error)
-}
-
 // User ...
 type User struct {
 	gorm.Model
