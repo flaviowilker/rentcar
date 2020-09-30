@@ -1,17 +1,8 @@
 package domain
 
 import (
-	"errors"
-
 	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
-)
-
-// User Errors
-var (
-	ErrUserNotFound = errors.New("user not found")
-
-	ErrUserInvalidPassword = errors.New("The password is invalid")
 )
 
 // User ...

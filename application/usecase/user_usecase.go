@@ -1,8 +1,15 @@
 package usecase
 
 import (
+	"errors"
+
 	"github.com/flaviowilker/rentcar/application/repository"
 	"github.com/flaviowilker/rentcar/domain"
+)
+
+var (
+	errUserNotFound        = errors.New("User not found")
+	errUserInvalidPassword = errors.New("The password is invalid")
 )
 
 // UserUseCase ...
@@ -69,12 +76,12 @@ func (u *UserUseCase) Login(login string, password string) (*domain.User, error)
 	user, err := u.UserRepository.FindByLogin(login)
 
 	if err != nil {
-		return nil, domain.ErrUserNotFound
+		return nil, errUserNotFound
 	}
 
 	if user.EqualsPassword(password) {
 		return user, nil
 	}
 
-	return nil, domain.ErrUserInvalidPassword
+	return nil, errUserInvalidPassword
 }
