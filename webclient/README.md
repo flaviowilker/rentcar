@@ -3,4 +3,4 @@
 </h3>
 
 ## About
-This web client is used as a web client for the REST endpoints.
+This app is used as a web client for the REST endpoints.
