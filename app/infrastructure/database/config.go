@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/flaviowilker/rentcar/infrastructure/database/migrations"
+	"github.com/flaviowilker/rentcar/app/infrastructure/database/migrations"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )

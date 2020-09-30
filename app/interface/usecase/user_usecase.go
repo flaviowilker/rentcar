@@ -1,6 +1,6 @@
 package usecase
 
-import "github.com/flaviowilker/rentcar/domain"
+import "github.com/flaviowilker/rentcar/app/domain"
 
 // UserUseCase ...
 type UserUseCase interface {

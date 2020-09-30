@@ -1,8 +1,8 @@
 package controller
 
 import (
-	"github.com/flaviowilker/rentcar/domain"
-	"github.com/flaviowilker/rentcar/interface/usecase"
+	"github.com/flaviowilker/rentcar/app/domain"
+	"github.com/flaviowilker/rentcar/app/interface/usecase"
 )
 
 // UserController ...

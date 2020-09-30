@@ -3,7 +3,7 @@ package migrations
 import (
 	"errors"
 
-	"github.com/flaviowilker/rentcar/domain"
+	"github.com/flaviowilker/rentcar/app/domain"
 	"gorm.io/gorm"
 )
 

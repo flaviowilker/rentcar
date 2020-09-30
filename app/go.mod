@@ -1,4 +1,4 @@
-module github.com/flaviowilker/rentcar
+module github.com/flaviowilker/rentcar/app
 
 go 1.15
 

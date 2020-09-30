@@ -3,8 +3,8 @@ package usecase
 import (
 	"errors"
 
-	"github.com/flaviowilker/rentcar/application/repository"
-	"github.com/flaviowilker/rentcar/domain"
+	"github.com/flaviowilker/rentcar/app/application/repository"
+	"github.com/flaviowilker/rentcar/app/domain"
 )
 
 var (

@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/flaviowilker/rentcar/infrastructure/database"
+	"github.com/flaviowilker/rentcar/app/infrastructure/database"
 )
 
 func main() {

@@ -22,6 +22,3 @@ This software is used as a system sample to rent cars. The software may help peo
 * The administrator can register the days when the car can be rented
   * It's not possible to create another registration for the same day
   * It's not possible to create a registration in the past
-
-## Architecture
- * This is an attempt to implement a clean architecture, that can be founded here https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html

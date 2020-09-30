@@ -1,6 +1,6 @@
 package repository
 
-import "github.com/flaviowilker/rentcar/domain"
+import "github.com/flaviowilker/rentcar/app/domain"
 
 // UserRepository ...
 type UserRepository interface {
