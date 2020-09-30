@@ -3,8 +3,10 @@ package usecase
 import (
 	"errors"
 
+	"github.com/flaviowilker/rentcar/app/application/presenter"
 	"github.com/flaviowilker/rentcar/app/application/repository"
-	"github.com/flaviowilker/rentcar/app/domain"
+	"github.com/flaviowilker/rentcar/app/application/usecase/input"
+	"github.com/flaviowilker/rentcar/app/application/usecase/output"
 )
 
 var (
@@ -15,63 +17,64 @@ var (
 // UserUseCase ...
 type UserUseCase struct {
 	UserRepository repository.UserRepository
+	UserPresenter  presenter.UserPresenter
 }
 
 // NewUserUseCase ...
-func NewUserUseCase(u repository.UserRepository) UserUseCase {
+func NewUserUseCase(r repository.UserRepository, p presenter.UserPresenter) UserUseCase {
 	return UserUseCase{
-		UserRepository: u,
+		UserRepository: r,
+		UserPresenter:  p,
 	}
 }
 
 // FindAll ...
-func (u *UserUseCase) FindAll() (*[]domain.User, error) {
+func (u *UserUseCase) FindAll() ([]*output.User, error) {
 	users, err := u.UserRepository.FindAll()
 
 	if err != nil {
-		return users, err
+		return nil, err
 	}
 
-	return users, nil
+	return u.UserPresenter.OutputUsers(users), nil
 }
 
 // Create ...
-func (u *UserUseCase) Create(entity domain.User) (*domain.User, error) {
-
-	user, err := u.UserRepository.Create(entity)
+func (u *UserUseCase) Create(input *input.User) (*output.User, error) {
+	user, err := u.UserRepository.Create(u.UserPresenter.InputUser(input))
 
 	if err != nil {
-		return user, err
+		return nil, err
 	}
 
-	return user, nil
+	return u.UserPresenter.OutputUser(user), nil
 }
 
 // Update ...
-func (u *UserUseCase) Update(entity domain.User) (*domain.User, error) {
+func (u *UserUseCase) Update(input *input.User) (*output.User, error) {
 
-	user, err := u.UserRepository.Update(entity)
+	user, err := u.UserRepository.Update(u.UserPresenter.InputUser(input))
 
 	if err != nil {
-		return user, err
+		return nil, err
 	}
 
-	return user, nil
+	return u.UserPresenter.OutputUser(user), nil
 }
 
 // Delete ...
-func (u *UserUseCase) Delete(id uint) (*domain.User, error) {
+func (u *UserUseCase) Delete(id uint) (*output.User, error) {
 	user, err := u.UserRepository.Delete(id)
 
 	if err != nil {
-		return user, err
+		return nil, err
 	}
 
-	return user, nil
+	return u.UserPresenter.OutputUser(user), nil
 }
 
 // Login ...
-func (u *UserUseCase) Login(login string, password string) (*domain.User, error) {
+func (u *UserUseCase) Login(login string, password string) (*output.User, error) {
 
 	user, err := u.UserRepository.FindByLogin(login)
 
@@ -80,7 +83,7 @@ func (u *UserUseCase) Login(login string, password string) (*domain.User, error)
 	}
 
 	if user.EqualsPassword(password) {
-		return user, nil
+		return u.UserPresenter.OutputUser(user), nil
 	}
 
 	return nil, errUserInvalidPassword

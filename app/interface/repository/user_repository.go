@@ -28,35 +28,35 @@ func (u *UserRepository) FindByLogin(login string) (*domain.User, error) {
 }
 
 // FindAll ...
-func (u *UserRepository) FindAll() (*[]domain.User, error) {
-	var users []domain.User
+func (u *UserRepository) FindAll() ([]*domain.User, error) {
+	var users []*domain.User
 
 	err := u.Db.Find(&users).Error
 	if err != nil {
 		return nil, err
 	}
 
-	return &users, nil
+	return users, nil
 }
 
 // Create ...
-func (u *UserRepository) Create(user domain.User) (*domain.User, error) {
-	err := u.Db.Save(&user).Error
+func (u *UserRepository) Create(user *domain.User) (*domain.User, error) {
+	err := u.Db.Save(user).Error
 	if err != nil {
 		return nil, err
 	}
 
-	return &user, nil
+	return user, nil
 }
 
 // Update ...
-func (u *UserRepository) Update(user domain.User) (*domain.User, error) {
-	err := u.Db.Save(&user).Error
+func (u *UserRepository) Update(user *domain.User) (*domain.User, error) {
+	err := u.Db.Save(user).Error
 	if err != nil {
 		return nil, err
 	}
 
-	return &user, nil
+	return user, nil
 }
 
 // Delete ...

@@ -1,12 +1,15 @@
 package usecase
 
-import "github.com/flaviowilker/rentcar/app/domain"
+import (
+	"github.com/flaviowilker/rentcar/app/application/usecase/input"
+	"github.com/flaviowilker/rentcar/app/application/usecase/output"
+)
 
 // UserUseCase ...
 type UserUseCase interface {
-	FindAll() (*[]domain.User, error)
-	Create(domain.User) (*domain.User, error)
-	Update(domain.User) (*domain.User, error)
-	Delete(uint) (*domain.User, error)
-	Login(string, string) (*domain.User, error)
+	FindAll() ([]*output.User, error)
+	Create(*input.User) (*output.User, error)
+	Update(*input.User) (*output.User, error)
+	Delete(uint) (*output.User, error)
+	Login(string, string) (*output.User, error)
 }

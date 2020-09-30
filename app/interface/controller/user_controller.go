@@ -1,7 +1,7 @@
 package controller
 
 import (
-	"github.com/flaviowilker/rentcar/app/domain"
+	"github.com/flaviowilker/rentcar/app/application/usecase/output"
 	"github.com/flaviowilker/rentcar/app/interface/usecase"
 )
 
@@ -18,11 +18,11 @@ func NewUserController(u usecase.UserUseCase) UserController {
 }
 
 // FindAll ...
-func (u *UserController) FindAll() (*[]domain.User, error) {
+func (u *UserController) FindAll() ([]*output.User, error) {
 	users, err := u.UserUseCase.FindAll()
 
 	if err != nil {
-		return users, err
+		return nil, err
 	}
 
 	return users, nil
