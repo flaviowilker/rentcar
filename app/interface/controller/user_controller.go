@@ -1,8 +1,8 @@
 package controller
 
 import (
-	"github.com/flaviowilker/rentcar/app/application/usecase/output"
 	"github.com/flaviowilker/rentcar/app/interface/usecase"
+	fiber "github.com/gofiber/fiber/v2"
 )
 
 // UserController ...
@@ -18,12 +18,12 @@ func NewUserController(u usecase.UserUseCase) UserController {
 }
 
 // FindAll ...
-func (u *UserController) FindAll() ([]*output.User, error) {
+func (u *UserController) FindAll(c *fiber.Ctx) error {
 	users, err := u.UserUseCase.FindAll()
 
 	if err != nil {
-		return nil, err
+		return c.SendStatus(404)
 	}
 
-	return users, nil
+	return c.JSON(users)
 }
