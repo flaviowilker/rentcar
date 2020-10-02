@@ -10,25 +10,13 @@ import (
 	"github.com/flaviowilker/rentcar/app/interface/controller"
 	"github.com/flaviowilker/rentcar/app/interface/presenter"
 	"github.com/flaviowilker/rentcar/app/interface/repository"
-	fiber "github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2"
 	"gorm.io/gorm"
 )
 
 var (
 	errPortIsNull = errors.New("Error web port is null")
 )
-
-type config struct {
-	port string
-}
-
-func (c *config) configValidate() error {
-	if c.port == "" {
-		return errPortIsNull
-	}
-
-	return nil
-}
 
 // CreateConfig ...
 func CreateConfig(db *gorm.DB) {
@@ -50,4 +38,16 @@ func CreateConfig(db *gorm.DB) {
 		log.Fatal(err)
 		panic(err)
 	}
+}
+
+type config struct {
+	port string
+}
+
+func (c *config) configValidate() error {
+	if c.port == "" {
+		return errPortIsNull
+	}
+
+	return nil
 }

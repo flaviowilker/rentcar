@@ -5,14 +5,14 @@ import (
 	"gorm.io/gorm"
 )
 
-// UserRepository ...
-type UserRepository struct {
-	Db *gorm.DB
-}
-
 // NewUserRepository ...
 func NewUserRepository(db *gorm.DB) UserRepository {
 	return UserRepository{Db: db}
+}
+
+// UserRepository ...
+type UserRepository struct {
+	Db *gorm.DB
 }
 
 // FindByLogin ...

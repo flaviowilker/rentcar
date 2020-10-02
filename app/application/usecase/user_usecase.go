@@ -14,18 +14,18 @@ var (
 	errUserInvalidPassword = errors.New("The password is invalid")
 )
 
-// UserUseCase ...
-type UserUseCase struct {
-	UserRepository repository.UserRepository
-	UserPresenter  presenter.UserPresenter
-}
-
 // NewUserUseCase ...
 func NewUserUseCase(r repository.UserRepository, p presenter.UserPresenter) UserUseCase {
 	return UserUseCase{
 		UserRepository: r,
 		UserPresenter:  p,
 	}
+}
+
+// UserUseCase ...
+type UserUseCase struct {
+	UserRepository repository.UserRepository
+	UserPresenter  presenter.UserPresenter
 }
 
 // FindAll ...

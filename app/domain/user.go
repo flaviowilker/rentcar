@@ -5,18 +5,6 @@ import (
 	"gorm.io/gorm"
 )
 
-// User ...
-type User struct {
-	gorm.Model
-	Name          string `gorm:"type:varchar(255)"`
-	Login         string `gorm:"type:varchar(255);unique_index"`
-	Password      string `gorm:"type:varchar(255)"`
-	Token         string `gorm:"type:varchar(255);unique_index"`
-	RoleID        uint
-	Role          Role
-	UserSchedules []UserSchedule
-}
-
 // NewUser ...
 func NewUser(name string, login string, password string, roleID uint) (*User, error) {
 	user := &User{
@@ -41,6 +29,18 @@ func NewUser(name string, login string, password string, roleID uint) (*User, er
 	user.Token = string(newToken)
 
 	return user, nil
+}
+
+// User ...
+type User struct {
+	gorm.Model
+	Name          string `gorm:"type:varchar(255)"`
+	Login         string `gorm:"type:varchar(255);unique_index"`
+	Password      string `gorm:"type:varchar(255)"`
+	Token         string `gorm:"type:varchar(255);unique_index"`
+	RoleID        uint
+	Role          Role
+	UserSchedules []UserSchedule
 }
 
 // EqualsPassword ...

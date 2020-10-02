@@ -6,13 +6,13 @@ import (
 	"github.com/flaviowilker/rentcar/app/domain"
 )
 
-// UserPresenter ...
-type UserPresenter struct {
-}
-
 // NewUserPresenter ...
 func NewUserPresenter() *UserPresenter {
 	return &UserPresenter{}
+}
+
+// UserPresenter ...
+type UserPresenter struct {
 }
 
 // InputUser ...

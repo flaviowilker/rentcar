@@ -19,32 +19,6 @@ var (
 	errPasswordIsNull      = errors.New("Database Password is null")
 )
 
-type config struct {
-	host     string
-	port     string
-	name     string
-	user     string
-	password string
-}
-
-func (c *config) configValidate() error {
-
-	switch {
-	case c.host == "":
-		return errHostIsNull
-	case c.port == "":
-		return errPortIsNull
-	case c.name == "":
-		return errNameIsNull
-	case c.user == "":
-		return errUserIsNull
-	case c.password == "":
-		return errPasswordIsNull
-	}
-
-	return nil
-}
-
 // NewConfig ...
 func NewConfig() *gorm.DB {
 
@@ -77,4 +51,30 @@ func createPostgresConnection(configDB *config) *gorm.DB {
 	}
 
 	return db
+}
+
+type config struct {
+	host     string
+	port     string
+	name     string
+	user     string
+	password string
+}
+
+func (c *config) configValidate() error {
+
+	switch {
+	case c.host == "":
+		return errHostIsNull
+	case c.port == "":
+		return errPortIsNull
+	case c.name == "":
+		return errNameIsNull
+	case c.user == "":
+		return errUserIsNull
+	case c.password == "":
+		return errPasswordIsNull
+	}
+
+	return nil
 }

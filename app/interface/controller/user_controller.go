@@ -2,19 +2,19 @@ package controller
 
 import (
 	"github.com/flaviowilker/rentcar/app/interface/usecase"
-	fiber "github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2"
 )
-
-// UserController ...
-type UserController struct {
-	UserUseCase usecase.UserUseCase
-}
 
 // NewUserController ...
 func NewUserController(u usecase.UserUseCase) UserController {
 	return UserController{
 		UserUseCase: u,
 	}
+}
+
+// UserController ...
+type UserController struct {
+	UserUseCase usecase.UserUseCase
 }
 
 // FindAll ...
