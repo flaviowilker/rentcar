@@ -27,7 +27,7 @@ type config struct {
 	password string
 }
 
-func (c config) configValidate() error {
+func (c *config) configValidate() error {
 
 	switch {
 	case c.host == "":
@@ -48,7 +48,7 @@ func (c config) configValidate() error {
 // NewConfig ...
 func NewConfig() *gorm.DB {
 
-	configDB := config{
+	configDB := &config{
 		host:     os.Getenv("DATABASE_HOST"),
 		port:     os.Getenv("DATABASE_PORT"),
 		name:     os.Getenv("DATABASE_NAME"),
@@ -67,7 +67,7 @@ func NewConfig() *gorm.DB {
 	return db
 }
 
-func createPostgresConnection(configDB config) *gorm.DB {
+func createPostgresConnection(configDB *config) *gorm.DB {
 	dsn := "host=" + configDB.host + " port=" + configDB.port + " dbname=" + configDB.name + " user=" + configDB.user + " password=" + configDB.password + " sslmode=disable TimeZone=America/Fortaleza"
 
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})

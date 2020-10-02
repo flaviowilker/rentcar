@@ -11,15 +11,16 @@ type UserRouter struct {
 	UserController controller.UserController
 }
 
-// NewUserUserRouter ...
-func NewUserUserRouter(r *fiber.App, u controller.UserController) UserRouter {
-	return UserRouter{
+func (u *UserRouter) createRoutes() {
+	u.Router.Get("/v1/users", u.UserController.FindAll)
+}
+
+// CreateUserRouter ...
+func CreateUserRouter(r *fiber.App, u controller.UserController) {
+	userRouter := &UserRouter{
 		Router:         r,
 		UserController: u,
 	}
-}
 
-// CreateRoutes ...
-func (u *UserRouter) CreateRoutes() {
-	u.Router.Get("/v1/users", u.UserController.FindAll)
+	userRouter.createRoutes()
 }
