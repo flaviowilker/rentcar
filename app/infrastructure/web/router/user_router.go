@@ -5,23 +5,19 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-// CreateUserRouter ...
-func CreateUserRouter(r *fiber.App, u controller.UserController) {
-	userRouter := &UserRouter{
-		Router:         r,
-		UserController: u,
+func newUserRouter(r *fiber.App, u controller.UserController) userRouter {
+	return userRouter{
+		app:            r,
+		userController: u,
 	}
-
-	userRouter.createRoutes()
 }
 
-// UserRouter ...
-type UserRouter struct {
-	Router         *fiber.App
-	UserController controller.UserController
+type userRouter struct {
+	app            *fiber.App
+	userController controller.UserController
 }
 
-func (u *UserRouter) createRoutes() {
-	u.Router.Get("/v1/users", u.UserController.FindAll)
-	u.Router.Post("/v1/users", u.UserController.Create)
+func (u *userRouter) createRoutes() {
+	u.app.Get("/v1/users", u.userController.FindAll)
+	u.app.Post("/v1/users", u.userController.Create)
 }

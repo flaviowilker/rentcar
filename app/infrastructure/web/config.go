@@ -5,11 +5,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/flaviowilker/rentcar/app/application/usecase"
 	"github.com/flaviowilker/rentcar/app/infrastructure/web/router"
-	"github.com/flaviowilker/rentcar/app/interface/controller"
-	"github.com/flaviowilker/rentcar/app/interface/presenter"
-	"github.com/flaviowilker/rentcar/app/interface/repository"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/recover"
@@ -33,11 +29,7 @@ func CreateConfig(db *gorm.DB) {
 	app.Use(recover.New())
 	app.Use(cors.New())
 
-	roleRepository := repository.NewRoleRepository(db)
-	userRepository := repository.NewUserRepository(db)
-	userUseCase := usecase.NewUserUseCase(&userRepository, presenter.NewUserPresenter(), &roleRepository, presenter.NewRolePresenter())
-	userController := controller.NewUserController(&userUseCase)
-	router.CreateUserRouter(app, &userController)
+	router.CreateAppRouter(db, app)
 
 	if err := app.Listen(":" + configWeb.port); err != nil {
 		log.Fatal(err)
