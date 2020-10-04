@@ -2,13 +2,11 @@ package domain
 
 import (
 	"time"
-
-	"gorm.io/gorm"
 )
 
 // CarSchedule ...
 type CarSchedule struct {
-	gorm.Model
+	Base
 	RentDate time.Time `gorm:"type:date"`
 	CarID    uint
 	Car      Car

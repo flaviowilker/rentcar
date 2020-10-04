@@ -1,7 +1,5 @@
 package domain
 
-import "gorm.io/gorm"
-
 // NewRole ...
 func NewRole(name string, code string) (*Role, error) {
 	role := &Role{
@@ -14,7 +12,7 @@ func NewRole(name string, code string) (*Role, error) {
 
 // Role ...
 type Role struct {
-	gorm.Model
+	Base
 	Name string `gorm:"type:varchar(255);unique"`
 	Code string `gorm:"type:varchar(255);unique"`
 }

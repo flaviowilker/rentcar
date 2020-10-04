@@ -1,9 +1,11 @@
 package output
 
+import uuid "github.com/satori/go.uuid"
+
 // User ...
 type User struct {
-	ID     uint   `json:"id"`
-	Name   string `json:"name"`
-	Login  string `json:"login"`
-	RoleID uint   `json:"roleId"`
+	ID     uuid.UUID `json:"id"`
+	Name   string    `json:"name"`
+	Login  string    `json:"login"`
+	RoleID uuid.UUID `json:"roleId"`
 }

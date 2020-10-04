@@ -1,12 +1,8 @@
 package domain
 
-import (
-	"gorm.io/gorm"
-)
-
 // UserSchedule ...
 type UserSchedule struct {
-	gorm.Model
+	Base
 	UserID        uint
 	CarScheduleID uint
 	CarSchedule   CarSchedule

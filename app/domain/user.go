@@ -1,12 +1,12 @@
 package domain
 
 import (
+	uuid "github.com/satori/go.uuid"
 	"golang.org/x/crypto/bcrypt"
-	"gorm.io/gorm"
 )
 
 // NewUser ...
-func NewUser(name string, login string, password string, roleID uint) (*User, error) {
+func NewUser(name string, login string, password string, roleID uuid.UUID) (*User, error) {
 	user := &User{
 		Name:     name,
 		Login:    login,
@@ -21,7 +21,7 @@ func NewUser(name string, login string, password string, roleID uint) (*User, er
 
 	user.Password = string(passwordCrypted)
 
-	newToken, err := bcrypt.GenerateFromPassword([]byte(user.Login+"-"+user.Password), bcrypt.DefaultCost)
+	newToken, err := bcrypt.GenerateFromPassword([]byte(user.Login+user.Password), bcrypt.DefaultCost)
 	if err != nil {
 		return nil, err
 	}
@@ -33,12 +33,12 @@ func NewUser(name string, login string, password string, roleID uint) (*User, er
 
 // User ...
 type User struct {
-	gorm.Model
+	Base
 	Name          string `gorm:"type:varchar(255)"`
 	Login         string `gorm:"type:varchar(255);unique;unique_index"`
 	Password      string `gorm:"type:varchar(255)"`
 	Token         string `gorm:"type:varchar(255);unique_index"`
-	RoleID        uint
+	RoleID        uuid.UUID
 	Role          Role
 	UserSchedules []UserSchedule
 }
