@@ -35,7 +35,7 @@ func NewUser(name string, login string, password string, roleID uint) (*User, er
 type User struct {
 	gorm.Model
 	Name          string `gorm:"type:varchar(255)"`
-	Login         string `gorm:"type:varchar(255);unique_index"`
+	Login         string `gorm:"type:varchar(255);unique;unique_index"`
 	Password      string `gorm:"type:varchar(255)"`
 	Token         string `gorm:"type:varchar(255);unique_index"`
 	RoleID        uint
