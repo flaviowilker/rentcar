@@ -23,4 +23,5 @@ type UserRouter struct {
 
 func (u *UserRouter) createRoutes() {
 	u.Router.Get("/v1/users", u.UserController.FindAll)
+	u.Router.Post("/v1/users", u.UserController.Create)
 }

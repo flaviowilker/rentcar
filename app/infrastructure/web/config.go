@@ -11,6 +11,8 @@ import (
 	"github.com/flaviowilker/rentcar/app/interface/presenter"
 	"github.com/flaviowilker/rentcar/app/interface/repository"
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/cors"
+	"github.com/gofiber/fiber/v2/middleware/recover"
 	"gorm.io/gorm"
 )
 
@@ -28,9 +30,12 @@ func CreateConfig(db *gorm.DB) {
 	}
 
 	app := fiber.New()
+	app.Use(recover.New())
+	app.Use(cors.New())
 
+	roleRepository := repository.NewRoleRepository(db)
 	userRepository := repository.NewUserRepository(db)
-	userUseCase := usecase.NewUserUseCase(&userRepository, presenter.NewUserPresenter())
+	userUseCase := usecase.NewUserUseCase(&userRepository, presenter.NewUserPresenter(), &roleRepository, presenter.NewRolePresenter())
 	userController := controller.NewUserController(&userUseCase)
 	router.CreateUserRouter(app, &userController)
 

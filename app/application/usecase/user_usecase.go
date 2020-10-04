@@ -7,6 +7,7 @@ import (
 	"github.com/flaviowilker/rentcar/app/application/repository"
 	"github.com/flaviowilker/rentcar/app/application/usecase/input"
 	"github.com/flaviowilker/rentcar/app/application/usecase/output"
+	"github.com/flaviowilker/rentcar/app/domain"
 )
 
 var (
@@ -15,10 +16,17 @@ var (
 )
 
 // NewUserUseCase ...
-func NewUserUseCase(r repository.UserRepository, p presenter.UserPresenter) UserUseCase {
+func NewUserUseCase(
+	ur repository.UserRepository,
+	up presenter.UserPresenter,
+	rr repository.RoleRepository,
+	rp presenter.RolePresenter) UserUseCase {
+
 	return UserUseCase{
-		UserRepository: r,
-		UserPresenter:  p,
+		UserRepository: ur,
+		UserPresenter:  up,
+		RoleRepository: rr,
+		RolePresenter:  rp,
 	}
 }
 
@@ -26,6 +34,8 @@ func NewUserUseCase(r repository.UserRepository, p presenter.UserPresenter) User
 type UserUseCase struct {
 	UserRepository repository.UserRepository
 	UserPresenter  presenter.UserPresenter
+	RoleRepository repository.RoleRepository
+	RolePresenter  presenter.RolePresenter
 }
 
 // FindAll ...
@@ -39,10 +49,21 @@ func (u *UserUseCase) FindAll() ([]*output.User, error) {
 	return u.UserPresenter.OutputUsers(users), nil
 }
 
-// Create ...
-func (u *UserUseCase) Create(input *input.User) (*output.User, error) {
-	user, err := u.UserRepository.Create(u.UserPresenter.InputUser(input))
+// CreateCustomer ...
+func (u *UserUseCase) CreateCustomer(input *input.User) (*output.User, error) {
 
+	role, err := u.RoleRepository.FindByCode("CUSTOMER")
+	if err != nil {
+		return nil, err
+	}
+
+	user := new(domain.User)
+	user, err = domain.NewUser(input.Name, input.Login, input.Password, role.ID)
+	if err != nil {
+		return nil, err
+	}
+
+	user, err = u.UserRepository.Create(user)
 	if err != nil {
 		return nil, err
 	}

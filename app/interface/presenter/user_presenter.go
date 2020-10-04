@@ -21,7 +21,6 @@ func (u *UserPresenter) InputUser(input *input.User) *domain.User {
 		Name:     input.Name,
 		Login:    input.Login,
 		Password: input.Password,
-		RoleID:   input.RoleID,
 	}
 }
 
@@ -41,12 +40,7 @@ func (u *UserPresenter) OutputUsers(users []*domain.User) []*output.User {
 	outputUsers := make([]*output.User, len(users))
 
 	for i, user := range users {
-		outputUsers[i] = &output.User{
-			ID:     user.ID,
-			Name:   user.Name,
-			Login:  user.Login,
-			RoleID: user.RoleID,
-		}
+		outputUsers[i] = u.OutputUser(user)
 	}
 
 	return outputUsers

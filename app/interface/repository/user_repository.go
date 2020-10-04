@@ -17,19 +17,19 @@ type UserRepository struct {
 
 // FindByLogin ...
 func (u *UserRepository) FindByLogin(login string) (*domain.User, error) {
-	var user domain.User
+	user := new(domain.User)
 
-	err := u.Db.First(&user, "login = ?", login).Error
+	err := u.Db.First(user, "login = ?", login).Error
 	if err != nil {
 		return nil, err
 	}
 
-	return &user, nil
+	return user, nil
 }
 
 // FindAll ...
 func (u *UserRepository) FindAll() ([]*domain.User, error) {
-	var users []*domain.User
+	users := make([]*domain.User, 10)
 
 	err := u.Db.Find(&users).Error
 	if err != nil {
@@ -41,7 +41,7 @@ func (u *UserRepository) FindAll() ([]*domain.User, error) {
 
 // Create ...
 func (u *UserRepository) Create(user *domain.User) (*domain.User, error) {
-	err := u.Db.Save(user).Error
+	err := u.Db.Create(user).Error
 	if err != nil {
 		return nil, err
 	}
@@ -61,17 +61,17 @@ func (u *UserRepository) Update(user *domain.User) (*domain.User, error) {
 
 // Delete ...
 func (u *UserRepository) Delete(id uint) (*domain.User, error) {
-	var user domain.User
+	user := new(domain.User)
 
-	err := u.Db.First(&user, id).Error
+	err := u.Db.First(user, id).Error
 	if err != nil {
 		return nil, err
 	}
 
-	err = u.Db.Delete(&user).Error
+	err = u.Db.Delete(user).Error
 	if err != nil {
 		return nil, err
 	}
 
-	return &user, nil
+	return user, nil
 }
