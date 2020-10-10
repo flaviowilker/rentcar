@@ -5,9 +5,9 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-func newUserRouter(r *fiber.App, u controller.UserController) userRouter {
+func newUserRouter(a *fiber.App, u controller.UserController) userRouter {
 	return userRouter{
-		app:            r,
+		app:            a,
 		userController: u,
 	}
 }
